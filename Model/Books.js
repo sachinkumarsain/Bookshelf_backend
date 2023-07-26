@@ -11,12 +11,12 @@ const bookSchema = new mongoose.Schema({
     author:{
         type: String, 
         required: true,
-        unique: false
+        // unique: false
     },  
      image:{
         type: String,
-        required: true,
-        unique: true
+        required: true, 
+        // unique:true
     },
     description: {
         type: String,
@@ -25,10 +25,6 @@ const bookSchema = new mongoose.Schema({
     bookType:{
         type: String,
         required: true,
-    },
-    country: {
-        type: String,
-        required: true
     },
      
 })
