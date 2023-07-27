@@ -34,8 +34,14 @@ app.post("/login", async (req ,res)=>{
     }
 })
 
+
+
 app.post("/register", async (req, res) => {
     const { name, email, phone, username, password } = req.body;
+
+
+
+ 
     
     // const hashedpassword = await bcrypt.hash(password , 10) ;
     const newUser = new user({
@@ -43,7 +49,7 @@ app.post("/register", async (req, res) => {
         email,
         phone,
         username,
-        password,
+        password,  
     })
     
     await newUser.save();
@@ -52,7 +58,7 @@ app.post("/register", async (req, res) => {
 
 })
 
-
+     
 
 app.post("/cart", async (req, res) => {
   const { aaya } = req.body;
@@ -67,7 +73,7 @@ app.post("/cart", async (req, res) => {
             author:bookdata.author,
             image:bookdata.image,
             description : bookdata.description,
-            bookType : "fantasy",  
+            bookType : "flower",    
             publishedDate: bookdata.publishedDate,
             publisher: bookdata.publisher
       
@@ -76,7 +82,7 @@ app.post("/cart", async (req, res) => {
 
     
           await newBooks.save(); 
-          console.log("ho gya");  
+          console.log("ho gya"); 
         }  
       
       res.status(200).send("books available"); 
