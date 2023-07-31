@@ -11,6 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: "http://localhost:3000" }));
 
+
 app.get("/", (req, res) => { 
     // res.send("hello world")
     
@@ -34,14 +35,8 @@ app.post("/login", async (req ,res)=>{
     }
 })
 
-
-
 app.post("/register", async (req, res) => {
-    const { name, email, phone, username, password } = req.body;
-
-
-
- 
+    const { name, email, phone, username, password } = req.body;    
     
     // const hashedpassword = await bcrypt.hash(password , 10) ;
     const newUser = new user({
@@ -54,7 +49,7 @@ app.post("/register", async (req, res) => {
     
     await newUser.save();
     console.log("hi")
-    res.status(200).end("well come")
+    res.status(200).send("well come")
 
 })
 
@@ -89,7 +84,14 @@ app.post("/cart", async (req, res) => {
    } 
 //else {
 //     res.status(350).send("please solve this error");
-  });                         
+  });     
+  
+  app.post("/searchbooks",async(req ,res)=>{
+        const regEx = new RegExp(req.body.inputValue, "i")
+        const result= await book.find({title:regEx});
+        res.status(200).json(result)
+
+  })
 
 
 connection.then(() => {
