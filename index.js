@@ -92,10 +92,10 @@ app.post("/cart", async (req, res) => {
         res.status(200).json(result)
 
   })
-  app.post("/product",async(req,res)=>{
+  app.get("/product",async(req,res)=>{
     const totalBooks = await book.find();
     if(totalBooks){
-        res.status(201).json(totalBooks)
+        res.status(200).json(totalBooks)
     }
     else{
         res.status(402).json("error")
