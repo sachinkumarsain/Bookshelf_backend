@@ -4,3 +4,4 @@ const connection = mongoose.connect("mongodb+srv://sachinsain21082004:sachin*210
     // useUniFriedTopoligy:true,
 )
 export default connection
+ 

@@ -5,6 +5,7 @@ import user from "./Model/user.js";
 import book from "./Model/Books.js"
 import jwt from "jsonwebtoken"
 import { config } from "dotenv"
+import dashbord from "./Model/dashbord.js"
 import cookieParser from "cookie-parser";
 // import bcrypt from "bcrypt"
 
@@ -15,12 +16,14 @@ app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: "http://localhost:3000" }));
 
+const jwtKey = process.env.SECRET_KEY;
+
 
 
 app.get("/", (req, res) => {
     // res.send("hello world")
 
-})
+}) 
 app.post("/login", async (req, res) => {
     const { username, password } = req.body;
 
@@ -31,14 +34,24 @@ app.post("/login", async (req, res) => {
           
             console.log("mja aa gya")
 
-            const jwtKey = process.env.SECRET_KEY;
+           
             const token = jwt.sign({userName:username}, jwtKey); 
             console.log(token)
-            res.cookie("token",token,{httpOnly:true,maxAge:400000})
-            
-            res.status(200).send();
+            const savedToken=("tokenKey",token)
+            // res.cookie("token",token,{httpOnly:true,maxAge:400000})
+          
+            const newUser = new dashbord({
+                username:username,
+                currentread:0,
+                likebook:0,    
+                commentbook:0,
+                
+            })
+        
+            await newUser.save(); 
+            console.log("hi")
+            res.status(200).send(savedToken);
         }
-
         else {
             res.status(401).send("invalid credentials")
         }
@@ -57,13 +70,13 @@ app.post("/register", async (req, res) => {
     // const hashedpassword = await bcrypt.hash(password , 10) ;
     const newUser = new user({
         name,
-        email,
+        email,    
         phone,
         username,
         password,
     })
 
-    await newUser.save();
+    await newUser.save(); 
     console.log("hi")
     res.status(200).send("well come")
 
@@ -96,12 +109,27 @@ app.post("/cart", async (req, res) => {
     //     res.status(350).send("please solve this error");
 });
 
+
+//..................................searchBooks..............................//
+
 app.post("/searchbooks", async (req, res) => {
+    const sessionId=req.body.session;
+    const decodeToken=jwt.verify(sessionId , jwtKey);
+    const username = decodeToken.userName
+    const userData = await user.find({username});
+
+
+    console.log(userData)
+
     const regEx = new RegExp(req.body.inputValue, "i")
     const result = await book.find({ title: regEx });
     res.status(200).json(result)
 
+     
 })
+
+//........................product..........................................//
+
 app.get("/product", async (req, res) => {
     const totalBooks = await book.find();
     if (totalBooks) {
