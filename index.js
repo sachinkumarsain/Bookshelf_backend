@@ -5,7 +5,7 @@ import user from "./Model/user.js";
 import book from "./Model/Books.js"
 import jwt from "jsonwebtoken"
 import { config } from "dotenv"
-import dashbord from "./Model/dashbord.js"
+import dashbord from "./Model/dashbord.js" 
 import cookieParser from "cookie-parser";
 // import bcrypt from "bcrypt"
 
@@ -20,10 +20,13 @@ const jwtKey = process.env.SECRET_KEY;
 
 
 
-app.get("/", (req, res) => {
+app.get("/", (req, res) => {       
+    
     // res.send("hello world")
 
-}) 
+})
+
+
 app.post("/login", async (req, res) => {
     const { username, password } = req.body;
 
@@ -46,7 +49,7 @@ app.post("/login", async (req, res) => {
                 likebook:0,    
                 commentbook:0,
                 
-            })
+            }) 
         
             await newUser.save(); 
             console.log("hi")
@@ -117,8 +120,7 @@ app.post("/searchbooks", async (req, res) => {
     const decodeToken=jwt.verify(sessionId , jwtKey);
     const username = decodeToken.userName
     const userData = await user.find({username});
-
-
+  
     console.log(userData)
 
     const regEx = new RegExp(req.body.inputValue, "i")
@@ -128,7 +130,7 @@ app.post("/searchbooks", async (req, res) => {
      
 })
 
-//........................product..........................................//
+//........................product...................................//
 
 app.get("/product", async (req, res) => {
     const totalBooks = await book.find();

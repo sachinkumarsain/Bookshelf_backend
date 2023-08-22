@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const dashbord = new mongoose.Schema({
+const dashbordSchema = new mongoose.Schema({
     username:{
         type :String,
         require:true
@@ -7,7 +7,7 @@ const dashbord = new mongoose.Schema({
     currentread:{
         type:Array
     },
-    likebook:{
+    likebook:{  
         type:Array
     },
     commentbook:{
@@ -15,5 +15,5 @@ const dashbord = new mongoose.Schema({
     }
 
 })
-
+const dashbord = mongoose.model("dashbord",dashbordSchema)
 export default dashbord
