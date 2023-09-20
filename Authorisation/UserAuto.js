@@ -15,7 +15,7 @@ config();
     res.send({status:400, message: "Didn't get any SessionId"}) 
   }
 
-  try {
+  try {      
     console.log("reached here");
     const decodeToken = jwt.verify(session, process.env.JWT_SECRET);
     console.log(decodeToken)
