@@ -35,8 +35,20 @@ router.get('/product', async (req, res) => {
 
 
 router.post("/listdata" , async(req, res)=>{
-    console.log(req.body)
-    res.status(200).json("backend me gya data") 
+    console.log(req.body)   
+
+    let listValue = req.body.listValue;
+
+    let data =  await book.find();
+    let filterData = data.filter((value)=>{
+         if(value.bookType===listValue){
+
+            return value
+        }
+    })
+    console.log(filterData)
+
+    res.status(200).json(filterData) 
 
 })
 
