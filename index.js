@@ -3,7 +3,7 @@ import express from "express"
 import connection from "./db/Connections.js"; 
 import books from "./Routes/books.js"
 import user  from "./Routes/users.js";
-import dashbord from "./Model/dashbord.js";
+import Dashboard from "./Routes/Dashboard.js"
 
  
 const app = express();
@@ -13,7 +13,7 @@ app.use(cors({ origin: "http://localhost:3000" }))
 
 app.use( user);
 app.use( books);
-app.use(dashbord)
+app.use(Dashboard)
 
  
 
