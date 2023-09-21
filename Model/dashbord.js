@@ -12,6 +12,9 @@ const dashbordSchema = new mongoose.Schema({
     },
     commentbook:{
         type:Array
+    },
+    searchbook:{
+        type:Array
     }
 
 })

@@ -1,32 +1,32 @@
 import express from "express";
 // import book from "./Model/Books.js";
 import book from '../Model/Books.js'
-import authorize from "../Authorisation/UserAuto.js";
+import  authorize from "../Authorisation/UserAuto.js"
 import dashbord from "../Model/dashbord.js";
 
 const router = express.Router();
 //-----------------------------------searchBook----------------------------------//
 
-// router.get('/searchbooks',authorize, async (req, res) => {
-//     console.log(req.body.inputValue)
-//     const regEx = new RegExp(req.body.inputValue, "i")
-//     const result = await book.find(  { title: regEx });
-//     res.status(200).json(result)
-// });
+router.post('/searchbooks', async (req, res) => {
+    // console.log(req.body.inputValue)
+    const regEx = new RegExp(req.body.inputValue, "i")
+    const result = await book.find(  { title: regEx });
+    res.status(200).json(result)
+});
 
 
 // ----------------------------------------product-------------------------------------//
 
-router.get('/product', async (req, res) => {
-    const totalBooks = await book.find();
-    // console.log(totalBooks)
-    if (totalBooks) {
-        res.status(200).json(totalBooks) 
-    }
-    else {
-        res.status(402).json("error")
-    }
-});   
+// router.get('/product', async (req, res) => {
+//     const totalBooks = await book.find();
+//     // console.log(totalBooks)
+//     if (totalBooks) {
+//         res.status(200).json(totalBooks) 
+//     }
+//     else {
+//         res.status(402).json("error")
+//     }
+// });   
 
 
 
@@ -34,23 +34,57 @@ router.get('/product', async (req, res) => {
 //--------------------------list data--------------------------------//
 
 
-router.post("/listdata" , async(req, res)=>{
-    console.log(req.body)   
+// router.post("/listdata" , async(req, res)=>{
+//     console.log(req.body)   
 
-    let listValue = req.body.listValue;
+//     let listValue = req.body.listValue;
 
-    let data =  await book.find();
-    let filterData = data.filter((value)=>{
-         if(value.bookType===listValue){
+//     let data =  await book.find();
+//     let filterData = data.filter((value)=>{
+//          if(value.bookType===listValue){
 
-            return value
-        }
-    })
-    console.log(filterData)
+//             return value
+//         }
+//     })
+    
+      
 
-    res.status(200).json(filterData) 
+//     res.status(200).json(filterData) 
+
+// })
+
+//.............................SearchBookOnClick...................//
+
+router.patch('/searchonclick/:session',authorize , async(req,res)=>{
+    
+        let bookID = req.body.bookId
+    let username = await req.authUsername 
+    
+    let filterBook = await dashbord.findOne({username}) 
+    let searchbooks = filterBook.searchbook
+
+    if(searchbooks.includes(bookID)){
+                res.status(200).send("you already likes this book")
+            }
+            else{
+                let liked = await dashbord.updateOne(
+                    {username},
+                    {$push:{searchbook:bookID}}
+                )
+        
+                res.status(200).send("Successfully searchbooked  book")
+        
+            }
+
+
+
+
+    res.status(200).json("hello")
 
 })
+
+
+
 
 
 //-----------------------------likedBook------------------------------------///

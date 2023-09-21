@@ -73,6 +73,7 @@ router.post("/register", async (req, res) => {
         currentread: 0,
         likebook: 0,
         commentbook: 0,
+        searchbook:0
 
     })
 
