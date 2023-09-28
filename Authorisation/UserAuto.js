@@ -18,10 +18,10 @@ function authorize(req, res, next) {
   try {
     console.log("reached here");
     const decodeToken = jwt.verify(session, jwtKey);
-    console.log(decodeToken)
-    const userName = decodeToken.userName;
+    // console.log(decodeToken)
+    // const userName = decodeToken.userName;
 
-      console.log(userName)
+      // console.log(userName)
 
     if (userName) {
       req.authUsername = userName;

@@ -6,7 +6,7 @@ import authorize from "../Authorisation/UserAuto.js";
 
 const router = express.Router();
 
-
+//gfhcfccgcyfcfyfg
 
 router.get(`/likebooks/:session`, authorize ,async(req,res)=>{
 
@@ -14,15 +14,15 @@ router.get(`/likebooks/:session`, authorize ,async(req,res)=>{
 
 
 
-    // let filterUser = await dashbord.findOne({username})
+    let filterUser = await dashbord.findOne({username})
     // let likeBookedIds = filterUser.likebook.slice(1)
 
-    // console.log(likeBookedIds) 
+    console.log(filterUser) 
 
-    console.log(username)       
+    // console.log(username)       
 
     
-    res.status(200).send(username)
+    res.status(200).send("name")
     // res.status(200).send(username)
 
 
