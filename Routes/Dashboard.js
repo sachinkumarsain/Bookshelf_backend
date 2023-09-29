@@ -8,25 +8,27 @@ const router = express.Router();
 
 //gfhcfccgcyfcfyfg
 
-router.get(`/likebooks/:session`, authorize ,async(req,res)=>{
+//.................Dashbook-Like-books.................//
 
-    let username = await req.authUsername 
+// router.get(`/likebooks/:session`, authorize ,async(req,res)=>{
+
+//     let username = await req.authUsername 
 
 
 
-    let filterUser = await dashbord.findOne({username})
-    // let likeBookedIds = filterUser.likebook.slice(1)
+//     let filterUser = await dashbord.findOne({username})
+//     let likeBookedIds = filterUser.likebook.slice(1)
 
-    console.log(filterUser) 
+//     console.log(likeBookedIds) 
 
-    // console.log(username)       
+//     console.log(username)       
 
     
-    res.status(200).send("name")
-    // res.status(200).send(username)
+//     res.status(200).send(likeBookedIds)
+//     // res.status(200).send(username)
 
 
-})
+// })
 
-
+//.................dashboard-comment-books............//
 export default router;

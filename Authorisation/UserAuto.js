@@ -19,7 +19,7 @@ function authorize(req, res, next) {
     console.log("reached here");
     const decodeToken = jwt.verify(session, jwtKey);
     // console.log(decodeToken)
-    // const userName = decodeToken.userName;
+    const userName = decodeToken.userName;
 
       // console.log(userName)
 
