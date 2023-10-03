@@ -7,12 +7,12 @@ import dashbord from "../Model/dashbord.js";
 const router = express.Router();
 //-----------------------------------searchBook----------------------------------//
 
-router.post('/searchbooks', async (req, res) => {
-    // console.log(req.body.inputValue)
-    const regEx = new RegExp(req.body.inputValue, "i")
-    const result = await book.find(  { title: regEx });
-    res.status(200).json(result)  
-});
+// router.post('/searchbooks', async (req, res) => {
+//     // console.log(req.body.inputValue)
+//     const regEx = new RegExp(req.body.inputValue, "i")
+//     const result = await book.find(  { title: regEx });
+//     res.status(200).json(result)  
+// });
 
 
 // ----------------------------------------product-------------------------------------//
