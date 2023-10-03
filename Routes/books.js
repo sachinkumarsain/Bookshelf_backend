@@ -7,12 +7,12 @@ import dashbord from "../Model/dashbord.js";
 const router = express.Router();
 //-----------------------------------searchBook----------------------------------//
 
-// router.post('/searchbooks', async (req, res) => {
-//     // console.log(req.body.inputValue)
-//     const regEx = new RegExp(req.body.inputValue, "i")
-//     const result = await book.find(  { title: regEx });
-//     res.status(200).json(result)  
-// });
+router.post('/searchbooks', async (req, res) => {
+    // console.log(req.body.inputValue)
+    const regEx = new RegExp(req.body.inputValue, "i")
+    const result = await book.find(  { title: regEx });
+    res.status(200).json(result)  
+});
 
 
 // ----------------------------------------product-------------------------------------//
@@ -55,34 +55,66 @@ router.post("/listdata" , async(req, res)=>{
 
 //.............................SearchBookOnClick...................//
 
-// router.patch('/searchonclick/:session',authorize , async(req,res)=>{
+router.patch('/searchonclick/:session',authorize , async(req,res)=>{
     
-//         let bookID = req.body.bookId
-//     let username = await req.authUsername 
+        let bookID = req.body.bookId
+    let username = await req.authUsername 
     
-//     let filterBook = await dashbord.findOne({username}) 
-//     let searchbooks = filterBook.searchbook
+    let filterBook = await dashbord.findOne({username}) 
+    let searchbooks = filterBook.searchbook
 
-//     if(searchbooks.includes(bookID)){
-//                 res.status(200).send("you already likes this book")
-//             }
-//             else{
-//                 let liked = await dashbord.updateOne(
-//                     {username},
-//                     {$push:{searchbook:bookID}}
-//                 )
+    if(searchbooks.includes(bookID)){
+                res.status(200).send("you already likes this book")
+            }
+            else{
+                let liked = await dashbord.updateOne(
+                    {username},
+                    {$push:{searchbook:bookID}}
+                )
         
-//                 res.status(200).send("Successfully searchbooked  book")
+                res.status(200).send("Successfully searchbooked  book")
         
-//             }
+            }
 
 
 
 
-//     res.status(200).json("hello")
+    res.status(200).json("hello")
 
-// })
+})
+//....................Current Read Book..................//
 
+router.patch('/currentread/:session',authorize , async(req,res)=>{
+    
+    let bookID = req.body.currentBookId
+    console.log(bookID)
+let username = await req.authUsername 
+
+console.log(username) 
+let filterBook = await dashbord.findOne({username}) 
+
+console.log(filterBook)
+let currentRead = filterBook.currentread
+
+if(currentRead.includes(bookID)){
+            res.status(200).send("you already likes this book")
+        }
+        else{
+            let CurrentRead = await dashbord.updateOne(
+                {username},
+                {$push:{currentread:bookID}}
+            )
+                console.log(currentRead)
+            res.status(200).send("Successfully current read  book")
+    
+        }
+
+
+
+
+res.status(200).json("hello")
+
+})
 
 
 
