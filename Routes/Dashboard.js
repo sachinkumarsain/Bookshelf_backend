@@ -79,7 +79,26 @@ router.get(`/currentreadbooks/:session`, authorize, async (req, res) => {
 })
 //.................dashboard-comment-books............//
 
+router.get(`/commentbooks/:session`, authorize, async (req, res) => {
 
+  let username = await req.authUsername
+
+
+  let filterUser = await dashbord.findOne({ username })
+  let commentIds = filterUser.commentbook.slice(1)
+
+  console.log(currentReadIds)
+
+  const collectData = await Promise.all(commentIds.map(async (_id) => {
+    return await book.findOne({ _id });
+  }));
+
+  console.log(collectData)
+
+
+  res.status(200).send(collectData)
+
+})
 
 
 
