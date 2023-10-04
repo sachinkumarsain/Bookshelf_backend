@@ -88,7 +88,7 @@ router.get(`/commentbooks/:session`, authorize, async (req, res) => {
   
     // taking all ids
     let temp =  commentedBooks.map((books) =>{
-      return books.bookId
+      return books.id
    }) 
   
 
@@ -100,18 +100,16 @@ router.get(`/commentbooks/:session`, authorize, async (req, res) => {
     return await book.findOne({_id});
   }));
   
-  
-  // merging rating with data
   const collectData = collectedData.map((bookData, i) => {
     return {
-      ...bookData.toObject(), // Convert Mongoose document to plain object
-      comment: comment[i], // Assign the corresponding rating
+      ...bookData.toObject(), 
+      comment: comment[i], 
     };
-  });
+  }); 
    
   
-    console.log(temp,  collectData) 
-    res.send({status:200, message: "got all commented BookData", collectData: collectData}) 
+    // console.log(temp,  collectData) 
+    res.send({status:200, message: "got all commented BookData", collectdata:collectData}) 
   
 
 })
