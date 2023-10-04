@@ -55,45 +55,45 @@ router.post("/listdata" , async(req, res)=>{
 
 //.............................SearchBookOnClick...................//
 
-router.patch('/searchonclick/:session',authorize , async(req,res)=>{
+// router.patch('/searchonclick/:session',authorize , async(req,res)=>{
     
-        let bookID = req.body.bookId
-    let username = await req.authUsername 
+//         let bookID = req.body.bookId
+//     let username = await req.authUsername 
     
-    let filterBook = await dashbord.findOne({username}) 
-    let searchbooks = filterBook.searchbook
+//     let filterBook = await dashbord.findOne({username}) 
+//     let searchbooks = filterBook.searchbook
 
-    if(searchbooks.includes(bookID)){
-                res.status(200).send("you already likes this book")
-            }
-            else{
-                let liked = await dashbord.updateOne(
-                    {username},
-                    {$push:{searchbook:bookID}}
-                )
+//     if(searchbooks.includes(bookID)){
+//                 res.status(200).send("you already likes this book")
+//             }
+//             else{
+//                 let liked = await dashbord.updateOne(
+//                     {username},
+//                     {$push:{searchbook:bookID}}
+//                 )
         
-                res.status(200).send("Successfully searchbooked  book")
+//                 res.status(200).send("Successfully searchbooked  book")
         
-            }
+//             }
 
 
 
 
-    res.status(200).json("hello")
+//     res.status(200).json("hello")
 
-})
+// })
 //....................Current Read Book..................//
 
 router.patch('/currentread/:session',authorize , async(req,res)=>{
     
     let bookID = req.body.currentBookId
-    console.log(bookID)
+    // console.log(bookID)
 let username = await req.authUsername 
 
-console.log(username) 
+// console.log(username) 
 let filterBook = await dashbord.findOne({username}) 
 
-console.log(filterBook)
+// console.log(filterBook)
 let currentRead = filterBook.currentread
 
 if(currentRead.includes(bookID)){
@@ -104,7 +104,7 @@ if(currentRead.includes(bookID)){
                 {username},
                 {$push:{currentread:bookID}}
             )
-                console.log(currentRead)
+                // console.log(currentRead)
             res.status(200).send("Successfully current read  book")
     
         }
@@ -121,62 +121,68 @@ res.status(200).json("hello")
 
 //-----------------------------likedBook------------------------------------///
 
-router.patch(`/product/:session`,authorize,   async(req,res)=>{
-    let likeId = req.body.likeBookId
-    let username = await req.authUsername 
+// router.patch(`/product/:session`,authorize,   async(req,res)=>{
+//     let likeId = req.body.likeBookId
+//     let username = await req.authUsername 
     
-    let filterBook = await dashbord.findOne({username}) 
-    let booksLiked = filterBook.likebook
+//     let filterBook = await dashbord.findOne({username}) 
+//     let booksLiked = filterBook.likebook
     
-    console.log(likeId, username, booksLiked)
-    if(booksLiked.includes(likeId)){
-        res.status(200).send("you already likes this book")
-    }
-    else{
-        let liked = await dashbord.updateOne(
-            {username},
-            {$push:{likebook:likeId}}
-        )
+//     console.log(likeId, username, booksLiked)
+//     if(booksLiked.includes(likeId)){
+//         res.status(200).send("you already likes this book")
+//     }
+//     else{
+//         let liked = await dashbord.updateOne(
+//             {username},
+//             {$push:{likebook:likeId}}
+//         )
 
-        // let totalLikedBook = await dashbord.likebook.find()
+//         // let totalLikedBook = await dashbord.likebook.find()
 
-        res.status(200).send("Successfully liked  book")
+//         res.status(200).send("Successfully liked  book")
 
-    }
+//     }
         
-})
+// })
 //...............................CommentBook...............................//
 
-// router.patch("/singleshowbook/:session",authorize,async(req,res)=>{
-//     let commentBookId = req.body.commentBook;
-//     let inputValue = req.body.inputValue;
+router.patch("/commentbook/:session",authorize,async(req,res)=>{
 
-//         let username = await req.authUsername 
+    let commentBookId = req.body.commentBook;
+    let inputValue = req.body.inputValue;
+
+    console.log(commentBookId , inputValue)
+
+
+        let username = await req.authUsername 
     
-//         let filterBook = await dashbord.findOne({username}) 
-//         let commentBookIds = filterBook.commentbook
+        let filterBook = await dashbord.findOne({username}) 
+        let commentBookIds = filterBook.commentbook
 
-//         if(commentBookIds.includes(commentBookId))
-//         {
-//             res.status(200).send("already commented")
-//         }
-//         else{
-//             let commented = await dashbord.updateOne(
-//                 {username},
-//                 {$push:{commentbook:{
-//                     id:commentBookId,
-//                     comment:inputValue
-//                 }}}
+        console.log(commentBookIds)
 
-//             )
+        if(commentBookIds.includes(commentBookId))
+        {
+            res.status(200).send("already commented")
+        }
+        else{
+            let commented = await dashbord.updateOne(
+                {username},
+                {$push:{commentbook:{
+                    id:commentBookId,
+                    comment:inputValue
+                }}}
+    
+            )
             
-//             res.status(200).send("Successfully liked  book")
-//         }
+            res.status(200).send("Successfully comment  book")
+        }
 
     
 
     
-// })
+})
 
 
 export default router;

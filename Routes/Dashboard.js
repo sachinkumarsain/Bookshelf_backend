@@ -71,7 +71,7 @@ router.get(`/currentreadbooks/:session`, authorize, async (req, res) => {
     return await book.findOne({ _id });
   }));
 
-  console.log(collectData)
+  // console.log(collectData)
 
 
   res.status(200).send(collectData)
@@ -81,22 +81,38 @@ router.get(`/currentreadbooks/:session`, authorize, async (req, res) => {
 
 router.get(`/commentbooks/:session`, authorize, async (req, res) => {
 
-  let username = await req.authUsername
+    let username = req.authUsername;  
+  
+    const filterUser = await dashbord.findOne({username})
+    let commentedBooks = filterUser.commentbook.slice(1)
+  
+    // taking all ids
+    let temp =  commentedBooks.map((books) =>{
+      return books.bookId
+   }) 
+  
 
-
-  let filterUser = await dashbord.findOne({ username })
-  let commentIds = filterUser.commentbook.slice(1)
-
-  console.log(currentReadIds)
-
-  const collectData = await Promise.all(commentIds.map(async (_id) => {
-    return await book.findOne({ _id });
+   let comment = commentedBooks.map((book) =>{
+    return book.comment
+  }) 
+  
+  const collectedData = await Promise.all(temp.map(async(_id) =>{ 
+    return await book.findOne({_id});
   }));
-
-  console.log(collectData)
-
-
-  res.status(200).send(collectData)
+  
+  
+  // merging rating with data
+  const collectData = collectedData.map((bookData, i) => {
+    return {
+      ...bookData.toObject(), // Convert Mongoose document to plain object
+      comment: comment[i], // Assign the corresponding rating
+    };
+  });
+   
+  
+    console.log(temp,  collectData) 
+    res.send({status:200, message: "got all commented BookData", collectData: collectData}) 
+  
 
 })
 
