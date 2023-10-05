@@ -86,11 +86,11 @@ router.get(`/commentbooks/:session`, authorize, async (req, res) => {
     const filterUser = await dashbord.findOne({username})
     let commentedBooks = filterUser.commentbook.slice(1)
   
-    // taking all ids
+    // taking all ids 
     let temp =  commentedBooks.map((books) =>{
       return books.id
    }) 
-  
+   
 
    let comment = commentedBooks.map((book) =>{
     return book.comment
