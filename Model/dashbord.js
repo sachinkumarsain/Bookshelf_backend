@@ -1,19 +1,22 @@
 import mongoose from "mongoose";
 const dashbordSchema = new mongoose.Schema({
     username:{
-        type :String,
-        require:true
-    },
-    currentread:{
-        type:Array
-    },
-    likebook:{  
+        type :String, 
+        require:true  
+    },   
+    currentread:{  
+        type:Array 
+    }, 
+    likebook:{   
         type:Array
     },
     commentbook:{
         type:Array
     },
     searchbook:{
+        type:Array
+    }
+    ,ratingbook:{
         type:Array
     }
 
