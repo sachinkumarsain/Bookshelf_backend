@@ -67,19 +67,24 @@ router.post("/register", async (req, res) => {
         password:hashedpassword,
     })
 
-    await newUser.save();
+    const saved = await newUser.save();
+
     const newDashboard = new dashbord({
         username: username,
         currentread: 0,
         likebook: 0,
         commentbook: 0,
-        searchbook:0
+        searchbook:0,
+        ratingbook:0
 
     })
 
-    await newDashboard.save();
-    console.log("hi")
-    res.status(200).send("well come")
+     await newDashboard.save();
+    // console.log("hi")
+    if(saved){
+        res.status(200).send("well come")
+    }
+    
 
 })
 

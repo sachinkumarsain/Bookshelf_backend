@@ -55,33 +55,33 @@ router.post("/listdata" , async(req, res)=>{
 
 //.............................SearchBookOnClick...................//
 
-// router.patch('/searchonclick/:session',authorize , async(req,res)=>{
+router.patch('/searchonclick/:session',authorize , async(req,res)=>{
     
-//         let bookID = req.body.bookId
-//     let username = await req.authUsername 
+        let bookID = req.body.bookId
+    let username = await req.authUsername 
     
-//     let filterBook = await dashbord.findOne({username}) 
-//     let searchbooks = filterBook.searchbook
+    let filterBook = await dashbord.findOne({username}) 
+    let searchbooks = filterBook.searchbook
 
-//     if(searchbooks.includes(bookID)){
-//                 res.status(200).send("you already likes this book")
-//             }
-//             else{
-//                 let liked = await dashbord.updateOne(
-//                     {username},
-//                     {$push:{searchbook:bookID}}
-//                 )
+    if(searchbooks.includes(bookID)){
+                res.status(200).send("you already likes this book")
+            }
+            else{
+                let liked = await dashbord.updateOne(
+                    {username},
+                    {$push:{searchbook:bookID}}
+                )
         
-//                 res.status(200).send("Successfully searchbooked  book")
+                res.status(200).send("Successfully searchbooked  book")
         
-//             }
+            }
 
 
 
 
-//     res.status(200).json("hello")
+    // res.status(200).json("hello")
 
-// })
+})
 //....................Current Read Book..................//
 
 router.patch('/currentread/:session',authorize , async(req,res)=>{
@@ -105,14 +105,14 @@ if(currentRead.includes(bookID)){
                 {$push:{currentread:bookID}}
             )
                 // console.log(currentRead)
-            res.status(200).send(200)
+            res.status(200).send("current book added")
     
         }
   
 
+ 
 
-
-res.status(200).json("hello")
+// res.status(200).json("hello")
 
 })
 
@@ -121,30 +121,30 @@ res.status(200).json("hello")
 
 //-----------------------------likedBook------------------------------------///
 
-// router.patch(`/product/:session`,authorize,   async(req,res)=>{
-//     let likeId = req.body.likeBookId
-//     let username = await req.authUsername 
+router.patch(`/product/:session`,authorize,   async(req,res)=>{
+    let likeId = req.body.likeBookId
+    let username = await req.authUsername 
     
-//     let filterBook = await dashbord.findOne({username}) 
-//     let booksLiked = filterBook.likebook
+    let filterBook = await dashbord.findOne({username}) 
+    let booksLiked = filterBook.likebook
     
-//     console.log(likeId, username, booksLiked)
-//     if(booksLiked.includes(likeId)){
-//         res.status(200).send("you already likes this book")
-//     }
-//     else{
-//         let liked = await dashbord.updateOne(
-//             {username},
-//             {$push:{likebook:likeId}}
-//         )
+    console.log(likeId, username, booksLiked)
+    if(booksLiked.includes(likeId)){
+        res.status(200).send("you already likes this book")
+    }
+    else{
+        let liked = await dashbord.updateOne(
+            {username},
+            {$push:{likebook:likeId}}
+        )
 
-//         // let totalLikedBook = await dashbord.likebook.find()
+        // let totalLikedBook = await dashbord.likebook.find()
 
-//         res.status(200).send("Successfully liked  book")
+        res.status(200).send("Successfully liked  book")
 
-//     }
+    }
         
-// })
+})
 //...............................CommentBook...............................//
 
 router.patch("/commentbook/:session",authorize,async(req,res)=>{
@@ -185,39 +185,39 @@ router.patch("/commentbook/:session",authorize,async(req,res)=>{
 })
 
 //........................set Rating book..........................//
-// router.patch("/rating/:session", authentication, async (req, res) => {
-//     let bookid = req.body.ratingBook;
-//     let username = req.authUsername;
-//     let rated = req.body.rating;
+router.patch("/rating/:session", authorize, async (req, res) => {
+    let bookid = req.body.ratingBook;
+    let username = req.authUsername;
+    let rated = req.body.rating;
   
-//     let filter = await dashbord.findOne({ username });
-//     let ratingBooks = filter.ratingBooks;
+    let filter = await dashbord.findOne({ username });
+    let ratingBooks = filter.ratingbook;
   
-//     //CHECKING BOOK ALREADY HAS GIVEN RATING
-//     let checkingBooks = ratingBooks.filter((book) => {
-//       let exist = false;
-//       if (book.bookId === bookid) {
-//         exist = true;
-//       } else {
-//         exist = false;
-//       }
-//       return exist;
-//     });
+    //CHECKING BOOK ALREADY HAS GIVEN RATING
+    let checkingBooks = ratingBooks.filter((book) => {
+      let exist = false;
+      if (book.bookId === bookid) {
+        exist = true;
+      } else {
+        exist = false;
+      }
+      return exist;
+    });
   
   
-//     if (checkingBooks.length === 0) {
-//       await dashbord.updateOne(
-//         { username },
-//         { $push: { ratingBooks: { bookId: bookid, rating: rated } } }
-//       );
+    if (checkingBooks.length === 0) {
+      await dashbord.updateOne(
+        { username },
+        { $push: { ratingbook: { bookId: bookid, rating: rated } } }
+      );
    
-//       res.send({status:200, message: "succesfuly rated books"})
+      res.send({status:200, message: "succesfuly rated books"})
   
-//     } else {
+    } else {
    
-//       res.send({status: 200, message: "You already gave rating to this book"}) 
-//     }
-//   });
+      res.send({status: 200, message: "You already gave rating to this book"}) 
+    }
+  });
   
 
 

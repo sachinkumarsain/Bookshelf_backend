@@ -16,7 +16,8 @@ const dashbordSchema = new mongoose.Schema({
     searchbook:{
         type:Array
     }
-    ,ratingbook:{
+    , 
+    ratingbook:{
         type:Array
     }
 
