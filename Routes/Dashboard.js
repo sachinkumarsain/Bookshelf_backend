@@ -27,11 +27,12 @@ router.get(`/likebooks/:session`, authorize, async (req, res) => {
   console.log(collectData)
 
 
-  res.status(200).send(collectData)
+  res.send({status:200, message: "got all liked BookData", collectdata:collectData}) 
   // res.status(200).send(username)
 
 
 })
+
 //.................search Books......................//
 
 router.get(`/searchbooks/:session`, authorize, async (req, res) => {
@@ -50,7 +51,7 @@ router.get(`/searchbooks/:session`, authorize, async (req, res) => {
 
   console.log(collectData)
 
-  res.status(200).send(collectData)
+  res.send({status:200, message: "got all search BookData", collectdata:collectData}) 
   // res.status(200).send(username)
 
 
@@ -74,7 +75,7 @@ router.get(`/currentreadbooks/:session`, authorize, async (req, res) => {
   // console.log(collectData)
 
 
-  res.status(200).send(collectData)
+  res.send({status:200, message: "got all current BookData", collectdata:collectData}) 
 
 })
 //.................dashboard-comment-books............//
